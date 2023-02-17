@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 const config = require('./knexfile');
 
-const db = knex(config.development);
+const db = knex(config);
 const express = require('express');
 
 const cors = require('cors');

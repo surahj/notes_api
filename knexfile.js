@@ -10,13 +10,7 @@
 //   }
 // };
 module.exports = {
-  development: {
-    client: 'pg',
-    connection: {
-      host: 'dpg-cfnppvcgqg415e40n87g-a',
-      user: 'surahj',
-      password: '3Ka6bxGMVZYUXdRVT3SU36LOzaKLxlOm',
-      database: 'note_database'
-    }
-  }
+  client: 'pg',
+  connection: process.env.DATABASE_URL,
+  searchPath: ['knex', 'public'],
 };
