@@ -13,6 +13,7 @@ const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 
 const app = express();
+const PORT = process.env.PORT || 3000
 app.use(cors())
 app.use(express.json())
 
@@ -35,6 +36,6 @@ db.select('*')
 app.post('/signin', signin.handleSignin(db, bcrypt));
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) });
 
-app.listen(3000, () => {
-  console.log('Server started on port 3000');
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
 });
