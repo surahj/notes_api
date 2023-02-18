@@ -1,3 +1,4 @@
+require("dotenv").config();
 const knex = require('knex');
 const bcrypt = require('bcrypt-nodejs');
 const bodyParser = require('body-parser');
