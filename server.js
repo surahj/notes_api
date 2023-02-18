@@ -3,6 +3,8 @@ const knex = require('knex');
 const bcrypt = require('bcrypt-nodejs');
 const bodyParser = require('body-parser');
 const config = require('./knexfile');
+
+
 const express = require('express');
 const cors = require('cors');
 
