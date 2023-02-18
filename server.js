@@ -23,10 +23,23 @@ app.get('/', (req, res) => {
   res.send('status OK');
 });
 
-const crypto = require('crypto');
+app.post('/notes', async (req, res, next) => {
+  const { title, content } = req.body;
+  const token = req.headers.authorization;
+  if (!title || !content) {
+    return res.status(400).json({ error: 'please provide a title and content for the note' });
+  }
 
-const JWT_SECRET = crypto.randomBytes(32).toString('hex');
-console.log(JWT_SECRET);
+  try {
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken.userId;
+    await db('notes').insert({ user_id: userId, title, content });
+    res.status(201).json({ message: 'note created successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 
 

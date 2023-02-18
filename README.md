@@ -46,19 +46,41 @@ This endpoint takes in no query parameter.
 
 #### Sample Request
 
-`curl https://notes-api-8h14.onrender.com/register`
+`curl -X POST -H "Content-Type: application/json" -d '{"username": "suraj", "password":"abcd123"}' https://notes-api-8h14.onrender.com/register | jq`
 
 #### Sample Response
 
 ```
 {
-  "categories": {
-    "1": "Science",
-    "2": "Art",
-    "3": "Geography",
-    "4": "History",
-    "5": "Entertainment",
-    "6": "Sports"
-  }
+  "user": "suraj"
 }
 ```
+
+### login
+
+### `POST /login`
+
+Log in a new user and return token for authentication, the token expires after one hour.
+
+#### Query Parameters
+
+This endpoint takes in no query parameter.
+
+#### Request Body
+
+`username`: string <small> (required) </small> - Username of the user. <br>
+`password`: string <small> (required) </small> - Password of the user. <br>
+
+#### Sample Request
+
+`curl -X POST -H "Content-Type: application/json" -d '{"username": "suraj", "password":"abcd123"}' https://notes-api-8h14.onrender.com/login | jq`
+
+#### Sample Response
+
+```
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzLCJpYXQiOjE2NzY3NTkxMDYsImV4cCI6MTY3Njc2MjcwNn0.tG81rm_WO4hZlrLjZfXYMXSvwSgHhlh9817pAO5hGyg"
+}
+```
+
+
