@@ -3,7 +3,7 @@ const knex = require('knex');
 const bcrypt = require('bcrypt-nodejs');
 const bodyParser = require('body-parser');
 const config = require('./knexfile');
-
+const jwt = require('jsonwebtoken');
 
 const express = require('express');
 const cors = require('cors');
@@ -23,19 +23,15 @@ app.get('/', (req, res) => {
   res.send('status OK');
 });
 
+const crypto = require('crypto');
+
+const JWT_SECRET = crypto.randomBytes(32).toString('hex');
+console.log(JWT_SECRET);
 
 
-db.select('*')
-  .from('mytable')
-  .then(rows => {
-    console.log(rows);
-  })
-  .catch(error => {
-    console.log(error);
-  });
 
-app.post('/signin', signin.handleSignin(db, bcrypt));
-app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt) });
+app.post('/login', signin.handleSignin(db, bcrypt, jwt));
+app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt, jwt) });
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);

@@ -1,24 +1,26 @@
-const handleSignin = (db, bcrypt) => (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return res.status(400).json('incorrect form submission');
+const handleSignin = (db, bcrypt, jwt) => async(req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json('kindly provide username and password');
   }
-  db.select('email', 'hash').from('login')
-    .where('email', '=', email)
-    .then(data => {
-      const isValid = bcrypt.compareSync(password, data[0].hash);
-      if (isValid) {
-        return db.select('*').from('users')
-          .where('email', '=', email)
-          .then(user => {
-            res.json(user[0])
-          })
-          .catch(err => res.status(400).json('unable to get user'))
-      } else {
-        res.status(400).json('wrong credentials')
-      }
-    })
-    .catch(err => res.status(400).json('wrong credentials'))
+
+  try {
+    const user = await db.select('*').from('users').where('username', '=', username).first();
+    if (!user) {
+      return res.status(401).json({ error: 'invalid username or password' });
+    }
+
+    const passwordMatch = await bcrypt.compareSync(password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ error: 'invalid username or password' });
+    }
+
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.status(200).json({ token });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 }
 
 module.exports = {
