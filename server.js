@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 
 const config = require('./knexfile');
 
+console.log(config.connection);
 const db = knex(config);
 const express = require('express');
 
