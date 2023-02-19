@@ -241,3 +241,31 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE0LCJ1c
     ]
 }
 ```
+
+### `DELETE /notes`
+
+Delete a note using uniqueId
+
+#### Parameters
+
+"uniqueId": "7a92b3eb-a284-4b2f-af33-81e557884710"
+
+#### Request Body
+
+This endpoint has no request body
+
+### Header
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE0LCJ1c2VyTmFtZSI6InN1cmFoaiIsImlhdCI6MTY3Njc5NjQ1MSwiZXhwIjoxNjc2ODE0NDUxfQ.BQG2G2GcJ5OmPFLmvH57nJv0YrtwKttL6_5iVzFQDmE
+
+
+#### Sample Request
+
+`curl -X DELETE -H "Content-Type: application/json" -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE0LCJ1c2VyTmFtZSI6InN1cmFoaiIsImlhdCI6MTY3Njc5NjQ1MSwiZXhwIjoxNjc2ODE0NDUxfQ.BQG2G2GcJ5OmPFLmvH57nJv0YrtwKttL6_5iVzFQDmE' https://notes-api-8h14.onrender.com/notes/7a92b3eb-a284-4b2f-af33-81e557884710`
+
+#### Sample Response
+
+```
+{
+    "message": "note deleted successfully"
+}
+```
