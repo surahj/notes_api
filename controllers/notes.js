@@ -12,7 +12,6 @@ const createNotes = async (req, res, db, jwt, secret) => {
   }
 
   try {
-    console.log(token);
     const decodedToken = jwt.verify(token, secret);
     const userId = decodedToken.userId;
     await db('notes').insert({ user_id: userId, title, content, note_id: uniqueId });
