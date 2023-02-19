@@ -63,7 +63,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE0LCJ1c
 
 ### `POST /login`
 
-Log in a new user and return token for authentication, the token expires after one hour.
+Log in a new user and return token for authentication, the token expires after five hours.
 
 #### Query Parameters
 
