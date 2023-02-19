@@ -1,4 +1,4 @@
-const handleRegister = async(req, res, db, bcrypt, jwt) => {
+const handleRegister = async(req, res, db, bcrypt) => {
   const { username, password } = req.body;
   if (!username || !password) {
     return res.status(400).json('kindly provide username and password');
