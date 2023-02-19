@@ -50,8 +50,12 @@ app.post('/test', async (req, res) => {
   }
 });
 
+const secret = process.env.JWT_SECRET;
+const encodedSecret = Buffer.from(secret).toString('base64');
 
-app.post('/login', signin.handleSignin(db, bcrypt, jwt));
+console.log(encodedSecret); 
+
+app.post('/login', signin.handleSignin(db, bcrypt, jwt, secret));
 app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt, jwt) });
 
 app.post('/notes', async (req, res, next) => {
@@ -64,7 +68,7 @@ app.post('/notes', async (req, res, next) => {
 
   try {
     console.log(token);
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedToken = jwt.verify(token, secret);
     console.log(decodedToken);
     const userId = decodedToken.userId;
     console.log(userId);

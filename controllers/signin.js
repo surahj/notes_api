@@ -1,4 +1,4 @@
-const handleSignin = (db, bcrypt, jwt) => async(req, res) => {
+const handleSignin = (db, bcrypt, jwt, secret) => async(req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
     return res.status(400).json('kindly provide username and password');
@@ -15,7 +15,7 @@ const handleSignin = (db, bcrypt, jwt) => async(req, res) => {
       return res.status(401).json({ error: 'invalid username or password' });
     }
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '1h' });
     res.status(200).json({ token });
   } catch (err) {
     console.error(err);
