@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
-
+const auth = require('../auth');
 
 const createNotes = async (req, res, db, jwt, secret) => {
   const { title, content } = req.body;
@@ -7,13 +7,17 @@ const createNotes = async (req, res, db, jwt, secret) => {
   const token = authHeader && authHeader.split(' ')[1];
   const uniqueId = uuidv4();
 
-  if (!title || !content) {
+  if (!title || !content)
     return res.status(400).json({ error: 'please provide a title and content for the note' });
-  }
+
+  const { payload, error } = auth.validateJWT(token, secret, jwt);
+
+  if (error)
+    return res.status(401).json({ error });
+
+  const userId = payload.userId;
 
   try {
-    const decodedToken = jwt.verify(token, secret);
-    const userId = decodedToken.userId;
     await db('notes').insert({ user_id: userId, title, content, note_id: uniqueId });
     res.status(201).json({ message: 'note created successfully', uniqueId });
   } catch (err) {
@@ -28,14 +32,19 @@ const updateNote = async (req, res, db, jwt, secret) => {
   const noteId = req.params.id;
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(' ')[1];
+
   if (!title && !content) {
     return res.status(400).json({ error: 'please provide a title or content to update the note' });
   }
 
-  try {
-    const decodedToken = jwt.verify(token, secret);
-    const userId = decodedToken.userId;
+  const { payload, error } = auth.validateJWT(token, secret, jwt);
 
+  if (error)
+    return res.status(401).json({ error });
+
+  const userId = payload.userId;
+
+  try {
     // Check if the note belongs to the user
     const note = await db('notes').where({ note_id: noteId, user_id: userId }).first();
     if (!note) {
@@ -58,10 +67,15 @@ const getNote = async (req, res, db, jwt, secret) => {
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(' ')[1];
 
-  try {
-    const decodedToken = jwt.verify(token, secret);
-    const userId = decodedToken.userId;
+  const { payload, error } = auth.validateJWT(token, secret, jwt);
 
+  if (error)
+    return res.status(401).json({ error });
+
+  const userId = payload.userId;
+
+
+  try {
     // Check if the note belongs to the user
     const note = await db('notes').where({ note_id: noteId, user_id: userId }).first();
     if (!note) {
@@ -81,10 +95,14 @@ const deleteNote = async (req, res, db, jwt, secret) => {
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(' ')[1];
 
-  try {
-    const decodedToken = jwt.verify(token, secret);
-    const userId = decodedToken.userId;
+  const { payload, error } = auth.validateJWT(token, secret, jwt);
 
+  if (error)
+    return res.status(401).json({ error });
+
+  const userId = payload.userId;
+
+  try {
     // Check if the note belongs to the user
     const note = await db('notes').where({ note_id: noteId, user_id: userId }).first();
     if (!note) {
@@ -106,10 +124,13 @@ const readNotes = async (req, res, db, jwt, secret) => {
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(' ')[1];
 
-  try {
-    const decodedToken = jwt.verify(token, secret);
-    const userId = decodedToken.userId;
+  const { payload, error } = auth.validateJWT(token, secret, jwt);
 
+  if (error)
+    return res.status(401).json({ error });
+
+  const userId = payload.userId;
+  try {
     // Retrieve all notes belonging to the user
     const notes = await db('notes').where({ user_id: userId });
 
@@ -119,8 +140,6 @@ const readNotes = async (req, res, db, jwt, secret) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 }
-
-
 
 
 module.exports = {
