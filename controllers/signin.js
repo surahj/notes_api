@@ -15,7 +15,7 @@ const handleSignin = (db, bcrypt, jwt, secret) => async(req, res) => {
       return res.status(401).json({ error: 'invalid username or password' });
     }
 
-    const token = jwt.sign({ userId: user.id }, secret, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user.id, userName: user.username }, secret, { expiresIn: '5h' });
     res.status(200).json({ token });
   } catch (err) {
     console.error(err);
