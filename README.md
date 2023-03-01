@@ -44,8 +44,6 @@ This endpoint takes in no query parameter.
 `username`: string <small> (required) </small> - Username of the new user. <br>
 `password`: string <small> (required) </small> - Password of the new user. <br>
 
-### Header
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE0LCJ1c2VyTmFtZSI6InN1cmFoaiIsImlhdCI6MTY3Njc5NjQ1MSwiZXhwIjoxNjc2ODE0NDUxfQ.BQG2G2GcJ5OmPFLmvH57nJv0YrtwKttL6_5iVzFQDmE
 
 #### Sample Request
 
@@ -73,10 +71,6 @@ This endpoint takes in no query parameter.
 
 `username`: string <small> (required) </small> - Username of the user. <br>
 `password`: string <small> (required) </small> - Password of the user. <br>
-
-### Header
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE0LCJ1c2VyTmFtZSI6InN1cmFoaiIsImlhdCI6MTY3Njc5NjQ1MSwiZXhwIjoxNjc2ODE0NDUxfQ.BQG2G2GcJ5OmPFLmvH57nJv0YrtwKttL6_5iVzFQDmE
-
 
 #### Sample Request
 
