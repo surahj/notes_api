@@ -47,7 +47,7 @@ This endpoint takes in no query parameter.
 
 #### Sample Request
 
-`curl -X POST -H "Content-Type: application/json" -d '{"username": "suraj", "password":"abcd123"}' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE0LCJ1c2VyTmFtZSI6InN1cmFoaiIsImlhdCI6MTY3Njc5NjQ1MSwiZXhwIjoxNjc2ODE0NDUxfQ.BQG2G2GcJ5OmPFLmvH57nJv0YrtwKttL6_5iVzFQDmE' https://notes-api-8h14.onrender.com/register | jq`
+`curl -X POST -H "Content-Type: application/json" -d '{"username": "suraj", "password":"abcd123"}' https://notes-api-8h14.onrender.com/register`
 
 #### Sample Response
 
@@ -74,7 +74,7 @@ This endpoint takes in no query parameter.
 
 #### Sample Request
 
-`curl -X POST -H "Content-Type: application/json" -d '{"username": "suraj", "password":"abcd123"}' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE0LCJ1c2VyTmFtZSI6InN1cmFoaiIsImlhdCI6MTY3Njc5NjQ1MSwiZXhwIjoxNjc2ODE0NDUxfQ.BQG2G2GcJ5OmPFLmvH57nJv0YrtwKttL6_5iVzFQDmE' https://notes-api-8h14.onrender.com/login`
+`curl -X POST -H "Content-Type: application/json" -d '{"username": "suraj", "password":"abcd123"}' https://notes-api-8h14.onrender.com/login`
 
 #### Sample Response
 
